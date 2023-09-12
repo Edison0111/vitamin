@@ -1,0 +1,203 @@
+{
+  "log": {
+    "disabled": true,
+    "level": "warn",
+    "output": "../run/output-sing-box.log",
+    "timestamp": false
+  },
+  "dns": {
+    "final": "dns_remote",
+    "strategy": "prefer_ipv4",
+    "servers": [
+      {
+        "tag": "dns_remote",
+        "address": "8.8.8.8"
+      }
+    ],
+    "rules": []
+  },
+  "inbounds": [
+    {
+      "type": "tproxy",
+      "tag": "tproxy-in",
+      "listen": "::",
+      "listen_port": 9898,
+      "sniff": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "selector",
+      "tag": "proxies",
+      "outbounds": [
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "ADS",
+      "outbounds": [
+        "block",
+        "direct",
+        "proxies"
+      ]
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "65.109.207.28",
+      "server_port": 12731,
+      "uuid": "d84cf571-8981-4d1e-bee8-eefbb2c235c1",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "65.109.207.28",
+      "server_port": 12731,
+      "uuid": "d84cf571-8981-4d1e-bee8-eefbb2c235c1",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "65.109.207.28",
+      "server_port": 12731,
+      "uuid": "d84cf571-8981-4d1e-bee8-eefbb2c235c1",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "65.109.207.28",
+      "server_port": 12731,
+      "uuid": "d84cf571-8981-4d1e-bee8-eefbb2c235c1",
+      "security": "auto"
+    }
+  ],
+  "route": {
+    "final": "proxies",
+    "rules": [
+      {
+        "geosite": [
+          "category-ads-all"
+        ],
+        "outbound": "ADS"
+      },
+      {
+        "ip_cidr": [
+          "8.8.8.8"
+        ],
+        "outbound": "t.me/ConfigsHub"
+      },
+      {
+        "protocol": "dns",
+        "outbound": "dns-out"
+      },
+      {
+        "port": [
+          53
+        ],
+        "outbound": "dns-out"
+      }
+    ],
+    "find_process": true,
+    "auto_detect_interface": false,
+    "override_android_vpn": false
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "../dashboard/dist",
+      "secret": "",
+      "store_selected": true
+    }
+  }
+}

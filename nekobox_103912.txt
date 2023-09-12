@@ -1,0 +1,295 @@
+{
+  "dns": {
+    "rules": [
+      {
+        "domain_suffix": [
+          ".arpa.",
+          ".arpa"
+        ],
+        "server": "dns-block"
+      },
+      {
+        "inbound": [
+          "tun-in"
+        ],
+        "server": "dns-fake"
+      }
+    ],
+    "servers": [
+      {
+        "address": "8.8.8.8",
+        "address_resolver": "dns-direct",
+        "tag": "dns-remote"
+      },
+      {
+        "address": "8.8.8.8",
+        "address_resolver": "dns-local",
+        "detour": "direct",
+        "tag": "dns-direct"
+      },
+      {
+        "address": "underlying://0.0.0.0",
+        "detour": "direct",
+        "tag": "dns-local"
+      },
+      {
+        "address": "rcode://success",
+        "tag": "dns-block"
+      },
+      {
+        "address": "fakedns://198.18.0.0/15",
+        "strategy": "ipv4_only",
+        "tag": "dns-fake"
+      }
+    ],
+    "strategy": "ipv4_only"
+  },
+  "experimental": {
+    "clash_api": {
+      "cache_file": "../cache/clash.db",
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "../files/yacd"
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "listen_port": 6450,
+      "override_address": "8.8.8.8",
+      "override_port": 53,
+      "tag": "dns-in",
+      "type": "direct"
+    },
+    {
+      "endpoint_independent_nat": true,
+      "inet4_address": [
+        "172.19.0.1/28"
+      ],
+      "sniff": true,
+      "stack": "system",
+      "tag": "tun-in",
+      "type": "tun"
+    },
+    {
+      "listen": "0.0.0.0",
+      "listen_port": 2080,
+      "sniff": true,
+      "tag": "mixed-in",
+      "type": "mixed"
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "TUNNEL",
+      "outbounds": [
+        "URL TEST",
+        "SELECT"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "URL TEST",
+      "outbounds": [
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "SELECT",
+      "outbounds": [
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub",
+        "t.me/ConfigsHub"
+      ]
+    },
+    {
+      "type": "selector",
+      "tag": "ADS",
+      "outbounds": [
+        "block",
+        "TUNNEL",
+        "direct"
+      ]
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "bypass",
+      "type": "direct"
+    },
+    {
+      "tag": "block",
+      "type": "block"
+    },
+    {
+      "tag": "dns-out",
+      "type": "dns"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "65.109.207.28",
+      "server_port": 12731,
+      "uuid": "d84cf571-8981-4d1e-bee8-eefbb2c235c1",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "65.109.207.28",
+      "server_port": 12731,
+      "uuid": "d84cf571-8981-4d1e-bee8-eefbb2c235c1",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "65.109.207.28",
+      "server_port": 12731,
+      "uuid": "d84cf571-8981-4d1e-bee8-eefbb2c235c1",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "195.201.219.113",
+      "server_port": 45449,
+      "uuid": "eb7ad6ca-ef4a-4261-c306-5be986a57176",
+      "security": "auto"
+    },
+    {
+      "type": "vmess",
+      "tag": "t.me/ConfigsHub",
+      "server": "65.109.207.28",
+      "server_port": 12731,
+      "uuid": "d84cf571-8981-4d1e-bee8-eefbb2c235c1",
+      "security": "auto"
+    }
+  ],
+  "route": {
+    "final": "TUNNEL",
+    "auto_detect_interface": true,
+    "rules": [
+      {
+        "geosite": [
+          "category-ads-all"
+        ],
+        "outbound": "ADS"
+      },
+      {
+        "ip_cidr": [
+          "8.8.8.8"
+        ],
+        "outbound": "TUNNEL"
+      },
+      {
+        "ip_cidr": [
+          "8.8.8.8"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "inbound": [
+          "dns-in"
+        ],
+        "outbound": "dns-out"
+      },
+      {
+        "outbound": "dns-out",
+        "port": [
+          53
+        ]
+      },
+      {
+        "ip_cidr": [
+          "224.0.0.0/3",
+          "ff00::/8"
+        ],
+        "outbound": "block",
+        "source_ip_cidr": [
+          "224.0.0.0/3",
+          "ff00::/8"
+        ]
+      }
+    ]
+  }
+}
